@@ -164,13 +164,13 @@ class HowlerBot(Wechaty):
             return
 
         if msg_type == Message.Type.MESSAGE_TYPE_IMAGE:
-            await conversation.say('已收到图像，开始验证')
+            await conversation.say('已收到图像，开始变换')
             file_box_user_image = await msg.to_file_box()
             img_name = file_box_user_image.name
-            img_path = f'./{img_name}'
+            img_path = f'./recieve_img/{img_name}'
             await file_box_user_image.to_file(file_path=img_path)
             await conversation.say(f"image file path: {img_path}")
-        
+
         if msg_type == MessageType.MESSAGE_TYPE_RECALLED:
             recalled_msg = await msg.to_recalled()
             log.info(f"{from_contact.name} recalled msg: {recalled_msg.text()}")
