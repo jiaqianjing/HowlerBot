@@ -1,5 +1,7 @@
 # custom
 logs
+recieve_img/
+puppet_service_gateway/bot/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
