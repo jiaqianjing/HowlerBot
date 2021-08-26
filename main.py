@@ -15,7 +15,7 @@ from wechaty_puppet.schemas.room import RoomQueryFilter
 from wechaty_puppet.schemas.url_link import UrlLinkPayload
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-
+from ai_dialogue import DialogueBot
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
@@ -24,7 +24,7 @@ log = logging.getLogger(__name__)
 # coupons code from Taobao
 coupons = '7👈￥5XbkXP4TW3O￥'
 chat_friend: list = []
-
+ai_bot = DialogueBot()
 
 async def check_room_join(bot: Optional[Wechaty],
                           room: Optional[Room],
@@ -147,6 +147,7 @@ class HowlerBot(Wechaty):
         if '#拜拜' == text:
             try:
                 chat_friend.remove(conversation)
+                ai_bot.history_clean()
             except Exception as e:
                 log.error(e)
                 return
@@ -159,7 +160,7 @@ class HowlerBot(Wechaty):
             return
 
         if conversation in chat_friend:
-            data = f'test-{text}'
+            data = ai_bot.response(text)
             await conversation.say(data)
             return
 
