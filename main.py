@@ -209,7 +209,7 @@ async def main():
     global bot
     bot = HowlerBot()
     scheduler = AsyncIOScheduler()
-    trigger = CronTrigger(hour="10", minute="30, 45")
+    trigger = CronTrigger(hour="10", minute="30")
     scheduler.add_job(food_delivery,
                       trigger=trigger,
                       args=[bot],
