@@ -138,6 +138,9 @@ class HowlerBot(Wechaty):
 
         at_me = await msg.mention_self()
 
+        rooms = await self.Room.find_all()
+        log.info(f'rooms: {rooms}, nums: {len(rooms)}')
+
         # empty message (only open chat windows)
         if msg_type == MessageType.MESSAGE_TYPE_UNSPECIFIED:
             log.info(
@@ -170,12 +173,13 @@ class HowlerBot(Wechaty):
             return
 
         if msg_type == Message.Type.MESSAGE_TYPE_IMAGE:
-            await conversation.say('已收到图像，开始变换')
-            file_box_user_image = await msg.to_file_box()
-            img_name = file_box_user_image.name
-            img_path = f'./recieve_img/{img_name}'
-            await file_box_user_image.to_file(file_path=img_path)
-            await conversation.say(f"image file path: {img_path}")
+            # await conversation.say('已收到图像，开始变换')
+            # file_box_user_image = await msg.to_file_box()
+            # img_name = file_box_user_image.name
+            # img_path = f'./recieve_img/{img_name}'
+            # await file_box_user_image.to_file(file_path=img_path)
+            # await conversation.say(f"image file path: {img_path}")
+            return
 
         if msg_type == MessageType.MESSAGE_TYPE_RECALLED:
             recalled_msg = await msg.to_recalled()
@@ -187,12 +191,14 @@ bot: Optional[HowlerBot] = None
 
 
 async def food_delivery(bot: Optional[Wechaty]):
-    sp_room = bot.Room.load(room_id="19363635010@chatroom")
-    sp_room_topic = await sp_room.topic()
-    log.info(f'sp room topic: [{sp_room_topic}]')
-    ding = "干饭了！别忘用优惠券！打开淘宝，将口令粘贴到搜索框中。"
-    await sp_room.say(ding)
-    await sp_room.say(coupons)
+    # sp_room = bot.Room.load(room_id="19363635010@chatroom")
+    rooms = await bot.Room.find_all()
+    for sp_room in rooms:
+        sp_room_topic = await sp_room.topic()
+        log.info(f'sp room topic: [{sp_room_topic}]')
+        ding = "干饭了！别忘用优惠券！打开淘宝，将口令粘贴到搜索框中。"
+        await sp_room.say(ding)
+        await sp_room.say(coupons)
 
 
 async def weather_forcast(bot: Optional[Wechaty]):
