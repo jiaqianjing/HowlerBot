@@ -143,6 +143,11 @@ class HowlerBot(Wechaty):
             log.info(
                 f"this msg may be empty. username: {conversation}, msg: {text}")
             return
+        
+        if '#干饭' == text:
+            await conversation.say('打开淘宝，将口令粘贴到搜索框中:')
+            await conversation.say(coupons)
+            return
 
         if '#拜拜' == text:
             try:
