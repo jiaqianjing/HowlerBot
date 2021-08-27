@@ -1,0 +1,4 @@
+aiohttp
+wechaty==0.8.16
+paddlenlp==2.0.5
+paddlepaddle==2.1.0

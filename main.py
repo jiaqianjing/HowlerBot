@@ -1,21 +1,25 @@
 import asyncio
+import datetime
+import json
 import logging
 import os
-import datetime
+import re
 import time
 from typing import List, Optional, Union
 
-from wechaty import (Wechaty, Contact, ContactType, Message, MessageType,
-                     FileBox, UrlLink, MiniProgram, ScanStatus, Room, user)
 import wechaty
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+from wechaty import (Contact, ContactType, FileBox, Message, MessageType,
+                     MiniProgram, Room, ScanStatus, UrlLink, Wechaty, user)
 from wechaty_puppet.schemas.contact import ContactQueryFilter
 from wechaty_puppet.schemas.event import EventErrorPayload
 from wechaty_puppet.schemas.mini_program import MiniProgramPayload
 from wechaty_puppet.schemas.room import RoomQueryFilter
 from wechaty_puppet.schemas.url_link import UrlLinkPayload
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.triggers.cron import CronTrigger
+
 from ai_dialogue import DialogueBot
+from weather import get_weather
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
@@ -25,6 +29,7 @@ log = logging.getLogger(__name__)
 coupons = '7👈￥5XbkXP4TW3O￥'
 chat_friend: list = []
 ai_bot = DialogueBot()
+
 
 async def check_room_join(bot: Optional[Wechaty],
                           room: Optional[Room],
@@ -146,7 +151,21 @@ class HowlerBot(Wechaty):
             log.info(
                 f"this msg may be empty. username: {conversation}, msg: {text}")
             return
-        
+
+        if '#天气' in text:
+            match_obj = re.match(r'^#天气_[u4e00-u9fa5]?', text)
+
+            match_obj = re.match(r'^(#天气) ([\u4e00-\u9fa5]+)', text)
+
+            if match_obj:
+                log.info(f"match_obj.group(): {match_obj.group()}")
+                weather = await get_weather(match_obj.group(2))
+                await conversation.say(weather)
+                return
+            else:
+                await conversation.say('请在#天气后空一格跟上要查寻的地址！例如: #天气 北京')
+                return
+
         if '#干饭' == text:
             await conversation.say('打开淘宝，将口令粘贴到搜索框中:')
             await conversation.say(coupons)
