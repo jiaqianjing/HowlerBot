@@ -5,6 +5,7 @@ puppet_service_gateway/bot
 .DS_Store
 *.log
 *.pid
+*.local
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
