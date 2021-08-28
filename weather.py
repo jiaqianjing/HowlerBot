@@ -34,8 +34,7 @@ async def get_weather(area: Optional[str]):
             zone = f"{zone} {location['district']}" if location[
                 'district'] else zone
             realtime = result['data']['realtime']
-            w = f"""
-{zone}
+            w = f"""{zone}
 天气: {realtime['weather']},
 时间: {realtime['time']},
 湿度: {realtime['airTempreture']},

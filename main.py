@@ -31,8 +31,7 @@ log = logging.getLogger(__name__)
 coupons = '7👈￥5XbkXP4TW3O￥'
 chat_friend: list = []
 ai_bot = DialogueBot()
-help_doc = """
-我会以下技能：
+help_doc = """我会以下技能：
 1. 发送 `#你会啥`，推送帮助指令
 2. 发送 `#天气 地名`查天气，如：`#天气 北京`
 3. 发送 `#唠嗑了` 开启闲聊模式
