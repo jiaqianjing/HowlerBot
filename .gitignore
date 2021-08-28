@@ -3,6 +3,9 @@ logs
 recieve_img/
 puppet_service_gateway/bot
 .DS_Store
+*.log
+*.pid
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

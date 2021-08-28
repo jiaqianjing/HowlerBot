@@ -21,27 +21,39 @@ from wechaty_puppet.schemas.url_link import UrlLinkPayload
 from ai_dialogue import DialogueBot
 from weather import get_weather
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format=
+    '%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 log = logging.getLogger(__name__)
 
 # coupons code from Taobao
 coupons = '7👈￥5XbkXP4TW3O￥'
 chat_friend: list = []
 ai_bot = DialogueBot()
+help_doc = """
+我会以下技能：
+1. 发送 `#你会啥`，推送帮助指令
+2. 发送 `#天气 地名`查天气，如：`#天气 北京`
+3. 发送 `#唠嗑了` 开启闲聊模式
+4. 发送 `#拜拜` 关闭闲聊模式
+5. 发送 `#干饭了` 推送外码优惠码
+6. 定时每天 10：30 提醒叫外卖服务（含优惠码）
+7. 图片文字信息提取（学习技能中）
+"""
 
 
-async def check_room_join(bot: Optional[Wechaty],
-                          room: Optional[Room],
-                          invitee_list: List[Contact],
-                          inviter: Contact):
+async def check_room_join(bot: Optional[Wechaty], room: Optional[Room],
+                          invitee_list: List[Contact], inviter: Contact):
     try:
         user_self = bot.user_self()
         if inviter.get_id() != user_self.contact_id:
-            await room.say('RULE1: Invitation is limited to me, the owner only. '
-                           'Please do not invite people without notify me.' + inviter)
-            await room.say('Please contact me: by send "ding" to me, I will re-send you a invitation. '
-                           'Now I will remove you out, sorry.' + ''.join(invitee_list))
+            await room.say(
+                'RULE1: Invitation is limited to me, the owner only. '
+                'Please do not invite people without notify me.' + inviter)
+            await room.say(
+                'Please contact me: by send "ding" to me, I will re-send you a invitation. '
+                'Now I will remove you out, sorry.' + ''.join(invitee_list))
             await room.topic('ding - warn ' + inviter.name)
             scheduler = AsyncIOScheduler()
             for i in invitee_list:
@@ -65,7 +77,8 @@ async def manager_ding_room(bot: Optional[Wechaty]):
             log.warn('room is not find')
             return
         log.info(
-            f"Bot start monitor <{room.payload.topic}> room join/leave/topic event")
+            f"Bot start monitor <{room.payload.topic}> room join/leave/topic event"
+        )
 
         def on_join(invitee_list, inviter):
             log.info('room.on(join) id:', room.room_id)
@@ -79,7 +92,6 @@ class HowlerBot(Wechaty):
     """
     listen wechaty event with inherited functions
     """
-
     def __init__(self):
         super().__init__()
 
@@ -99,7 +111,8 @@ class HowlerBot(Wechaty):
         await master.say(msg)
         return await super().on_login(contact)
 
-    async def on_scan(self, qr_code: str, status: ScanStatus, data: Optional[str]):
+    async def on_scan(self, qr_code: str, status: ScanStatus,
+                      data: Optional[str]):
         return await super().on_scan(qr_code, status, data=data)
 
     async def on_room_join(self, room: Room, invitees: List[Contact],
@@ -107,7 +120,8 @@ class HowlerBot(Wechaty):
         invitees_name = ','.join(map(lambda c: c.name, invitees))
         topic = await room.topic()
         log.info(
-            f'Bot EVENT: room-join - Room "{topic}" got new member "{invitees_name}", invited by "{inviter.name}", date: {date}')
+            f'Bot EVENT: room-join - Room "{topic}" got new member "{invitees_name}", invited by "{inviter.name}", date: {date}'
+        )
         log.info('bot room-join room id:', room.room_id)
         await room.say('welcome {0} to "{1}"!'.format(invitees_name, topic))
 
@@ -116,15 +130,20 @@ class HowlerBot(Wechaty):
         leavers_name = ','.join(map(lambda c: c.name, leavers))
         topic = await room.topic()
         log.info(
-            f'Bot EVENT: room-leave - Room "{topic}" kick off member "{leavers_name}", removed by: "{remover.name}", date: {date}')
+            f'Bot EVENT: room-leave - Room "{topic}" kick off member "{leavers_name}", removed by: "{remover.name}", date: {date}'
+        )
         log.info('bot room-join room id:', room.room_id)
         await room.say(f'kick off "{leavers_name}" from "{topic}"')
 
-    async def on_room_topic(self, room: Room, new_topic: str, old_topic: str, changer: Contact, date: datetime):
+    async def on_room_topic(self, room: Room, new_topic: str, old_topic: str,
+                            changer: Contact, date: datetime):
         try:
             log.info(
-                f'Bot EVENT: room-topic - Room "{room}" change topic from "{old_topic}" to "{new_topic}" by member "{changer.name}" at "{date}"')
-            await room.say(f'room topic - change topic from "{old_topic}" to "{new_topic}"')
+                f'Bot EVENT: room-topic - Room "{room}" change topic from "{old_topic}" to "{new_topic}" by member "{changer.name}" at "{date}"'
+            )
+            await room.say(
+                f'room topic - change topic from "{old_topic}" to "{new_topic}"'
+            )
         except Exception as e:
             log.exception(e)
 
@@ -149,7 +168,12 @@ class HowlerBot(Wechaty):
         # empty message (only open chat windows)
         if msg_type == MessageType.MESSAGE_TYPE_UNSPECIFIED:
             log.info(
-                f"this msg may be empty. username: {conversation}, msg: {text}")
+                f"this msg may be empty. username: {conversation}, msg: {text}"
+            )
+            return
+
+        if '#你会啥' in text:
+            await conversation.say(help_doc)
             return
 
         if '#天气' in text:
@@ -202,7 +226,8 @@ class HowlerBot(Wechaty):
 
         if msg_type == MessageType.MESSAGE_TYPE_RECALLED:
             recalled_msg = await msg.to_recalled()
-            log.info(f"{from_contact.name} recalled msg: {recalled_msg.text()}")
+            log.info(
+                f"{from_contact.name} recalled msg: {recalled_msg.text()}")
             await conversation.say(f"{from_contact} recalled msg.")
 
 
@@ -237,6 +262,8 @@ async def main():
     scheduler.start()
     await bot.start()
 
+
 os.environ['WECHATY_PUPPET'] = "wechaty-puppet-service"
-os.environ['WECHATY_PUPPET_SERVICE_TOKEN'] = "60788d8e-4ea7-4d81-9349-8b0d697866b1"
+os.environ[
+    'WECHATY_PUPPET_SERVICE_TOKEN'] = "60788d8e-4ea7-4d81-9349-8b0d697866b1"
 asyncio.run(main())

@@ -16,7 +16,6 @@ params = {
     "district": ""  # 组合5,地域查天气,行政区、县
 }
 headers = {
-
     'Content-Type': 'application/json;charset=UTF-8',
     'X-Bce-Signature': 'AppCode/e0f05dd3c047481fa6b37354daa995fc'
 }
@@ -25,32 +24,27 @@ headers = {
 async def get_weather(area: Optional[str]):
     params['area'] = area
     async with aiohttp.ClientSession() as session:
-        async with session.get(url=url, headers=headers, params=params) as resp:
+        async with session.get(url=url, headers=headers,
+                               params=params) as resp:
             result = await resp.json()
             location = result['data']['location']
             print(f"result: {location}")
             zone = location['region'] if location['region'] else ''
             zone = f"{zone} {location['city']}" if location['city'] else zone
-            zone = f"{zone} {location['district']}" if location['district'] else zone
+            zone = f"{zone} {location['district']}" if location[
+                'district'] else zone
             realtime = result['data']['realtime']
-            # drop 一些更细粒度的指标，如: pm2.5 等
-            # realtime.pop('index')
-            # realtime = json.dumps(realtime,
-            #                       ensure_ascii=False,  # 支持中文编码
-            #                       indent=4,
-            #                       sort_keys=False,
-            #                       skipkeys=True)
             w = f"""
-            {zone}
-            天气: {realtime['weather']},
-            时间: {realtime['time']},
-            湿度: {realtime['airTempreture']},
-            风向: {realtime['windDirection']},
-            风力: {realtime['windForce']},
-            湿度: {realtime['humidity']},
-            空气质量: {realtime['index']['aqi']},
-            pm2.5: {realtime['index']['pm2.5']}
-            """
+{zone}
+天气: {realtime['weather']},
+时间: {realtime['time']},
+湿度: {realtime['airTempreture']},
+风向: {realtime['windDirection']},
+风力: {realtime['windForce']},
+湿度: {realtime['humidity']},
+空气质量: {realtime['index']['aqi']},
+pm2.5: {realtime['index']['pm2.5']}
+"""
 
             return w
 
