@@ -6,7 +6,7 @@ HowlerBot 定位是生活帮手，陪玩，整蛊等多元化的机器人。由�
    2. [申请免费试用地址](http://pad-local.com/#/tokens)
 2. `python-wechaty` 是 `wechaty` 的 python 客户端
    1. github 地址: https://github.com/wechaty/python-wechaty
-3. `paddlepaddle`, `paddlenlp` (用于一些模型推理)
+3. `paddlepaddle`, `paddlenlp` (用于一些本地模型推理，后期会分离出去，采用远端调用的方式请求，本地弊端太多)
    1. paddlepaddle github: https://github.com/PaddlePaddle/Paddle
    2. paddlenlp github: https://github.com/PaddlePaddle/paddlenlp
 
