@@ -15,9 +15,10 @@ params = {
     "city": "",  # 组合5,地域查天气,城市
     "district": ""  # 组合5,地域查天气,行政区、县
 }
+# Replace it with your AppCode.
 headers = {
     'Content-Type': 'application/json;charset=UTF-8',
-    'X-Bce-Signature': 'AppCode/e0f05dd3c047481fa6b37354daa995fc'
+    'X-Bce-Signature': 'AppCode/e0f05******81fa6b37354daa995fc'
 }
 
 
