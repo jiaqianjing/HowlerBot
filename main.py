@@ -263,6 +263,7 @@ async def main():
 
 
 os.environ['WECHATY_PUPPET'] = "wechaty-puppet-service"
+# Replace it with your Token
 os.environ[
-    'WECHATY_PUPPET_SERVICE_TOKEN'] = "60788d8e-4ea7-4d81-9349-8b0d697866b1"
+    'WECHATY_PUPPET_SERVICE_TOKEN'] = "60788d8-**************-8b0d697866b1"
 asyncio.run(main())
