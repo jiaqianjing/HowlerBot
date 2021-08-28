@@ -3,6 +3,7 @@ from os import read
 from typing import Optional
 import aiohttp
 import asyncio
+import constant
 
 url = "http://gwgp-eo6wy9xwz4k.n.bdcloudapi.com/"
 params = {
@@ -18,7 +19,7 @@ params = {
 # Replace it with your AppCode.
 headers = {
     'Content-Type': 'application/json;charset=UTF-8',
-    'X-Bce-Signature': 'AppCode/e0f05******81fa6b37354daa995fc'
+    'X-Bce-Signature': constant.X_BCE_SIGNATURE_WEATHER
 }
 
 

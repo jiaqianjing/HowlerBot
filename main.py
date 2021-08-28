@@ -5,6 +5,7 @@ import logging
 import os
 import re
 import time
+import constant
 from typing import List, Optional, Union
 
 import wechaty
@@ -265,5 +266,5 @@ async def main():
 os.environ['WECHATY_PUPPET'] = "wechaty-puppet-service"
 # Replace it with your Token
 os.environ[
-    'WECHATY_PUPPET_SERVICE_TOKEN'] = "60788d8-**************-8b0d697866b1"
+    'WECHATY_PUPPET_SERVICE_TOKEN'] = constant.WECHATY_PUPPET_SERVICE_TOKEN
 asyncio.run(main())
