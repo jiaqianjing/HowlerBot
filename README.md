@@ -10,6 +10,14 @@ HowlerBot 定位是生活帮手，陪玩，整蛊等多元化的机器人。由�
    1. paddlepaddle github: https://github.com/PaddlePaddle/Paddle
    2. paddlenlp github: https://github.com/PaddlePaddle/paddlenlp
 
+## Note
+* 需要部署一个 `wechaty puppet service` 的 `gateway` 服务
+	* 因为 wechaty 本身是 ts 实现的，为了支持多语言（例如本例的 python 调用）需要部署类似充当 "翻译" 的 proxy 服务，我们成为 gateway.
+    * 具体步骤可以参见：https://python-wechaty.readthedocs.io/zh_CN/latest/introduction/use-padlocal-protocol/
+    * 机器资源可以是你的本地电脑，也可以是云厂商的云机器，这里我是”薅“ 了百度云的轻量级服务器，[新人活动 89 元/年](https://cloud.baidu.com/campaign/2021autdiscount/index.html?track=cp:npinzhuan|pf:PC|pp:npinzhuan-biaoti|pu:wenzineirong|ci:21phsy|kw:10314815)，还是比较划算的。
+    * 购置好机器后，安装 docker, 然后执行这个 [start_puppet_service_gateway.sh](https://github.com/jiaqianjing/HowlerBot/blob/main/puppet_service_gateway/start_puppet_service_gateway.sh) (注意启动前，打开该文件，替换自己的 token)
+ * `查询天气` 功能这里调用是的[百度云-云市场](https://market.baidu.com/)关于查询天气的第三方 API，在 `header` 中使用了鉴权的 `appcode` 这里脱敏了，如果需要此功能，需要用户自行解决。 
+ * 其他没啥注意的，按照 github 中的 readme 操作即可。
 
 ## Usage
 ### 如何启动
