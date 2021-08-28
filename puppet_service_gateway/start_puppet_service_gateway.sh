@@ -7,7 +7,7 @@ export WECHATY_PUPPET="wechaty-puppet-padlocal"
 
 # 用于 padlocal 服务供应商的 token 认证 (需要付费)
 # 申请地址: http://pad-local.com
-export WECHATY_PUPPET_PADLOCAL_TOKEN="puppet_padlocal_ee68888f722645588127f0773dbcb9bd"
+export WECHATY_PUPPET_PADLOCAL_TOKEN="puppet_padlocal_ee****22645588127f0773dbcb9bd"
 
 # 本地网关服务暴露的端口
 export WECHATY_PUPPET_SERVER_PORT="9001"
