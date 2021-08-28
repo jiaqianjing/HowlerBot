@@ -14,7 +14,7 @@ export WECHATY_PUPPET_SERVER_PORT="9001"
 
 # 用于本地网关的 token 认证
 # 可使用代码随机生成UUID：python -c "import uuid;print(uuid.uuid4());"
-export WECHATY_TOKEN="60788d8e-4ea7-4d81-9349-8b0d697866b1"
+export WECHATY_TOKEN="60788d8e-**********-9349-8b0d697866b1"
 
 docker run -ti \
   --restart=always \
