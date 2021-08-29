@@ -52,7 +52,10 @@ HowlerBot 定位是生活帮手，陪玩，整蛊等多元化的机器人。由�
    当有新朋友进入机器人所在的群的时候，机器人会主动发送欢迎的消息。
 
 ## Demo
-一些具体的例子
+### B 站视频
+<iframe src="//player.bilibili.com/player.html?aid=250237547&bvid=BV1wv411P78p&cid=398500521&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width=600 height=800> </iframe>
+
+### 截图
 * 帮助指令
   ![](./img/demo-05.png)
 
