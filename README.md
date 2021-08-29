@@ -53,9 +53,8 @@ HowlerBot 定位是生活帮手，陪玩，整蛊等多元化的机器人。由�
 
 ## Demo
 ### B 站视频
-   
-   <iframe src="//player.bilibili.com/player.html?aid=250237547&bvid=BV1wv411P78p&cid=398500521&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width=600 height=800> </iframe>
-
+* 播放地址： https://www.bilibili.com/video/BV1wv411P78p?share_source=copy_web
+  
 ### 截图
 * 帮助指令
   ![](./img/demo-05.png)
