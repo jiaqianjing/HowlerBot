@@ -39,7 +39,7 @@ async def get_weather(area: Optional[str]):
             w = f"""{zone}
 天气: {realtime['weather']},
 时间: {realtime['time']},
-湿度: {realtime['airTempreture']},
+温度: {realtime['airTempreture']},
 风向: {realtime['windDirection']},
 风力: {realtime['windForce']},
 湿度: {realtime['humidity']},
