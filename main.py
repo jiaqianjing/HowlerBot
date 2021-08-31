@@ -21,6 +21,7 @@ from wechaty_puppet.schemas.url_link import UrlLinkPayload
 
 from ai_dialogue import DialogueBot
 from weather import get_weather
+from ocr import get_content_from_img
 
 logging.basicConfig(
     level=logging.INFO,
@@ -216,12 +217,13 @@ class HowlerBot(Wechaty):
             return
 
         if msg_type == Message.Type.MESSAGE_TYPE_IMAGE:
-            # await conversation.say('已收到图像，开始变换')
-            # file_box_user_image = await msg.to_file_box()
-            # img_name = file_box_user_image.name
-            # img_path = f'./recieve_img/{img_name}'
-            # await file_box_user_image.to_file(file_path=img_path)
-            # await conversation.say(f"image file path: {img_path}")
+            await conversation.say('已收到图像，文字提取中...')
+            file_box_user_image = await msg.to_file_box()
+            img_name = file_box_user_image.name
+            img_path = f'./recieve_img/{img_name}'
+            await file_box_user_image.to_file(file_path=img_path)
+            word = await get_content_from_img(img_path)
+            await conversation.say(word)
             return
 
         if msg_type == MessageType.MESSAGE_TYPE_RECALLED:
